@@ -3,61 +3,65 @@ import Navbar from './component/Navbar';
 import Footer from './component/Footer';
 import Todos from './component/Todos';
 import AddNote from './component/AddNote';
+import Alert from './component/Alert';
+import About from './component/About';
+import {useState } from "react";
+import NoteState from './context/notes/NoteState';
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+
+} from "react-router-dom";
 
 
-import { useState } from "react";
+
 function App() {
-  const onDelete = (todo) => {
-    console.log('onDelete', todo)
-    setTodos(todos.filter((e) => {
-      return e !== todo
-    }))
-  }
-  const addTodo = (title, desc) => {
-    console.log('addTodo', title, desc)
-    let sno;
-    if (todos.length == 0) {
-      sno = 1;
-    }
-    else {
 
-      sno = todos[todos.length - 1].sno + 1;
-    }
-    const myTodo = {
-      sno: sno,
-      title: title,
-      desc: desc
-    }
-    setTodos([...todos, myTodo]);
-    console.log(myTodo);
+
+  const [alert, setAlert] = useState(null);
+
+  const showAlert = (message, type) => {
+    setAlert({
+
+      msg: message,
+      type: type
+
+    })
+    setTimeout(() => {
+      setAlert(null);
+    }, 2000)
 
   }
 
-  const [todos, setTodos] = useState([
-    {
-      sno: 1,
-      title: "Go to market",
-      desc: "please buy patato"
-    },
-    {
-      sno: 2,
-      title: "Go to gym",
-      desc: "please buy protien shack"
-    },
-    {
-      sno: 3,
-      title: "Go to mall",
-      desc: "please buy clothing"
-    }
-  ]);
+
 
   return (
-    <div >
-      <Navbar />
-      <AddNote addTodo={addTodo} />
-      <Todos todos={todos} onDelete={onDelete} />
 
-      <Footer />
+
+
+
+    <div>
+      <NoteState>
+      <Router>
+        
+        <Navbar />
+        <Alert alert={alert} />
+        <Routes>
+
+          <Route exact path="/"
+            element={<><AddNote  showAlert={showAlert} />
+              <Todos  showAlert={showAlert} /></>}>
+          </Route>
+          <Route exact path="/about"
+            element={<About />}>
+          </Route>
+
+
+        </Routes>
+        <Footer />
+      </Router>
+      </NoteState>
     </div>
   );
 }
