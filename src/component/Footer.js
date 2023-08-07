@@ -4,10 +4,10 @@ import React from 'react'
 const Footer = () => {
   return (
     <footer className='bg-dark text-light' style={{    
-      position : 'sticky',
-      left: '0',
+      position: "fixed",
       bottom: '0',
-      width: '100%',
+      width: "100%",
+      height: "2.5rem",
       backgroundColor: '#f0f0f0',
       paddingTop: '10px',
       paddingBottom: '5px',

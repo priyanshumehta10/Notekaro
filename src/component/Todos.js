@@ -1,11 +1,14 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import Todo from "./Todo";
 import NoteContext from '../context/notes/NoteContext';
+import {useNavigate} from 'react-router-dom';
 
-const Todos = () => {
+
+const Todos = (props) => {
   const context = useContext(NoteContext);
   const { notes, getNotes,editNote  } = context;
-
+  let navigate = useNavigate()
+  const {showAlert} = props;
   const [note, setNote] = useState({
     id: "",
     etitle: "",
@@ -13,13 +16,19 @@ const Todos = () => {
     etag: ""
   });
 
-  const handleClick = (e) => {
+  const handleClick = () => {
     ref.current.click();
     editNote(note.id, note.etitle, note.edescription, note.etag);
   };
 
   useEffect(() => {
-    getNotes();
+    if(localStorage.getItem("token")){
+
+      getNotes();
+    }else{
+      navigate('/home')
+    }
+    // eslint-disable-next-line
   }, []);
 
   const ref = useRef(null);
@@ -28,7 +37,7 @@ const Todos = () => {
   const updateNote = (currentNote) => {
     ref.current.click();
     setNote({
-      id: currentNote.id,
+      id: currentNote._id, 
       etitle: currentNote.title,
       edescription: currentNote.description,
       etag: currentNote.tag
@@ -38,15 +47,14 @@ const Todos = () => {
   const onChange = (e) => {
     setNote((prevNote) => ({
       ...prevNote,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     }));
   };
 
-  // Check if the note state is null
-  if (note === null) {
+  // Check if the note state is null or empty
+  if (!note) {
     return null; // Or a loading indicator or any other fallback UI
   }
-
   return (
     <>
 
@@ -68,7 +76,7 @@ const Todos = () => {
                   <input
                     type="text"
                     className="border border-success form-control"
-                    value={note.title}
+                    value={note.etitle}
                     onChange={onChange}
                     name="etitle"
                     id="etitle"
@@ -112,7 +120,7 @@ const Todos = () => {
         </div>
       </div>
 
-      <h3 className="text-center">TODO LIST</h3>
+      <h3 className="text-center shad">TODO LIST</h3>
       <div className="mb-5 pb-3">
         {notes.length === 0 ? (
           <img
@@ -124,16 +132,18 @@ const Todos = () => {
             src="https://img.freepik.com/premium-vector/nothing-here-flat-illustration_418302-77.jpg"
             alt="No Notes Here"
           />
-        ) : (
-          notes.map((note) => {
-            return (
-              <Todo note={note} updateNote={updateNote} key={note._id} />
-            );
-          })
-        )}
-      </div>
-    </>
-  );
-};
-
-export default Todos;
+          ) : (
+            notes.map((note) => {
+              return (
+               
+                <Todo note={note} showAlert={showAlert} updateNote={() => updateNote(note)} key={note._id} /> 
+                
+              );
+            })
+          )}
+        </div>
+      </>
+    );
+  };
+  
+  export default Todos;

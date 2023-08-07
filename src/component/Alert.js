@@ -1,17 +1,26 @@
 import React from 'react'
-
+import { useLocation } from 'react-router-dom';
 export default function Alert(props) {
+  let location = useLocation();
     const capitalize = (word) => {
+      if(word === 'danger'){
+      word = "Error"
+    }else if(word ==="success"){
+      word = "Congrats"
+
+    }
         const lower = word.toLowerCase();
         return lower.charAt(0).toUpperCase() + lower.slice(1);
     }
+    
   return (
     
-   <div style={{height:"50px"}}> 
-      {props.alert && <div className="alert alert-success alert-dismissible fade show"  role="alert">
-        <button type="button" className="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+   <div > 
+      {props.alert && <div className={`alert alert-${props.alert.type} alert-dismissible fade show `}  
+       role="alert">
+     
 
-    <strong>{capitalize(props.alert.type)}</strong>   {props.alert.msg}
+    <strong>{capitalize(props.alert.type)}:</strong>   {props.alert.msg}
     </div>}
 </div>
     

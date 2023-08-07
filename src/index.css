@@ -1,8 +1,6 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family:monospace;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -13,6 +11,115 @@ code {
 }
 .img{transition: transform .5s;}
 .img:hover{
-  transform: scale(1.10);
+  transform: scalex(1.02);
 }
+.img1{transition: transform .5s;}
+.img1:hover{
+  transform: scale(1.02);
+}
+
+.button{
+  position: relative;
+  overflow: hidden;
+  padding: 10px;
+  color: #fff;
+}
+.button1::after{
+  content: "";
+  display: block;
+  height: 1px;
+  width: 100%;
+  background-color: #0275d8;
+  transform: scalex(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+}
+.button1:hover::after{
+  transform: scalex(1);
+}
+.cred:hover{
+
+ background-color: transparent;
+ color: #0275d8;
+ border: 2px solid #0275d8;
+}
+
+.myImage{
+
+    background-image: url(./component/Myphoto/notehome.jpg);
+    background-size: cover;
+    height: 150vh; 
+    background-position: center;
+
+}
+.shad1{
+  text-shadow: 12px 12px 15px gray;
+}
+
+@media (max-width: 768px) {
+  .myImage {
+
+    background-image: url(./component/Myphoto/notehomerotate.jpg);
+    background-size: cover;
+    height: 100vh; 
+    background-position: center;
+    
+  }
+}
+.text1{
+  font-size: 20px;
+}
+@media (max-width: 768px) {
+  .text1{
+    font-size: 16px;
+  }
+}
+
+.rightsideanimation{
+  animation-name: rightsideanimation;
+  animation-duration: 3s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease;
+  transition: all .3s;
+}
+@keyframes rightsideanimation{
+  0%{
+    transform: translateX(0px);
+  }
+  55%{
+    transform: translateX(30px);
+  }
+  100%{
+    transform: translateX(0px);
+  }
+}
+.leftsideanimation{
+  animation-name: leftsideanimation;
+  animation-duration: 3s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease;
+  transition: all .3s;
+}
+@keyframes leftsideanimation{
+  0%{
+    transform: translateX(0px);
+  }
+  55%{
+    transform: translateX(-30px);
+  }
+  100%{
+    transform: translateX(0px);
+  }
+}
+.color1{
+  color: rgb(245, 137, 155);
+  font-weight:bolder;
+  font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  -webkit-text-stroke-width: 0.5px;
+  -webkit-text-stroke-color: rgb(237, 12, 87);
+  font-size: 23px;
+}
+
+
+
 

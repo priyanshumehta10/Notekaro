@@ -13,6 +13,9 @@ import {
   Route,
 
 } from "react-router-dom";
+import Login from './component/Login';
+import Signup from './component/Signup';
+import Home from './component/Home';
 
 
 
@@ -48,7 +51,16 @@ function App() {
         <Navbar />
         <Alert alert={alert} />
         <Routes>
-
+        <Route exact path="/login"
+            element={<Login  showAlert={showAlert}/>}>
+          </Route>
+          <Route exact path="/signup"
+            element={<Signup  showAlert={showAlert}/>}>
+          </Route>
+         
+          <Route exact path="/home"
+            element={<Home  showAlert={showAlert}/>}>
+          </Route>
           <Route exact path="/"
             element={<><AddNote  showAlert={showAlert} />
               <Todos  showAlert={showAlert} /></>}>
